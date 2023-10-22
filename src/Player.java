@@ -22,6 +22,10 @@ public class Player {
 	public void addToHand(Card card) {
 		hand.add(card);
 	}
+
+	public void removeFromHand(Card card) { // does this leave holes in array/is this a problem?
+		hand.remove(card);
+	}
 	
 	/*public void play() {    ???
 		
