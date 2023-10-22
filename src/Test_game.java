@@ -62,16 +62,11 @@ public class Test_game {
 		
 		System.out.println("\nYou will go first\n");  // create y/n method?
 		
-		boolean cont = false;
-		while (cont == false) {
-			System.out.println("set/ask"); // clarify
-			String action = input.nextLine();
+		boolean cont = true;
+		while (cont == true) {
 			
-			// input validation
-			while (!action.equalsIgnoreCase("set") && !action.equalsIgnoreCase("ask")) {
-				System.out.println("Not a valid option. Please type \"set\" or \"ask\"");
-				action = input.nextLine();
-			}
+			// Ask player if wants to discard set or ask for card
+			String action = action(input);
 			
 			if (action.equalsIgnoreCase("set")) {
 				System.out.println("Enter the 4 numbers of the cards in the set, one at a time");
@@ -83,6 +78,8 @@ public class Test_game {
 					System.out.print(num + ": ");
 					setNumbers[num-1] = input.nextInt(); 
 				}
+				
+				input.nextLine();
 				
 				// check if 4 cards selected make a set
 				Card[] set = checkSet(player1, setNumbers);
@@ -96,9 +93,11 @@ public class Test_game {
 						discard.add(card);
 					}
 					
+					cont = false;
+					
 				} else {
 					System.out.println("Those cards do not make a set");
-
+					
 				}
 	
 			}else {
@@ -107,6 +106,19 @@ public class Test_game {
 			
 		} // end while
 	} 
+	
+	public static String action(Scanner input) {
+		System.out.println("set/ask"); // clarify
+		String action = input.nextLine();
+		
+		// input validation
+		while (!action.equalsIgnoreCase("set") && !action.equalsIgnoreCase("ask")) {
+			System.out.println("Not a valid option. Please type \"set\" or \"ask\"");
+			action = input.nextLine();
+		}
+		
+		return action;
+	}
 	
 	public static Card[] checkSet(Player player, int[] setNumbers) {
 		Card card1 = player.getHand().get(setNumbers[0]-1);
