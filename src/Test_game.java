@@ -26,7 +26,7 @@ public class Test_game {
 		players.add(player2);
 		
 		// shuffle deck
-		deck.shuffleDeck();
+		//deck.shuffleDeck();
 					
 		// distribute 7 cards to each player
 		for (Player player : players) {
@@ -59,11 +59,21 @@ public class Test_game {
 			System.out.println(cardCounter + ". " + card.toString());
 		}
 		
+		/*
+		// TEST PURPOSES
+		// Read out hand to player
+		System.out.println(player2.getName() + ", " + "your cards are:");
+		cardCounter = 0;
+		for (Card card : player2.getHand()) {
+			cardCounter ++;
+			System.out.println(cardCounter + ". " + card.toString());
+		}
+		*/
 		
 		System.out.println("\nYou will go first\n");  // create y/n method?
 		
 		boolean cont = true;
-		while (cont == true) {
+		while (cont == false) {
 			
 			// Ask player if wants to discard set or ask for card
 			String action = action(input);
@@ -93,7 +103,7 @@ public class Test_game {
 						discard.add(card);
 					}
 					
-					cont = false;
+					cont = true;
 					
 				} else {
 					System.out.println("Those cards do not make a set");
@@ -102,6 +112,26 @@ public class Test_game {
 	
 			}else {
 				// ask code
+				System.out.println("Enter the number of the card you would like to ask for.");
+				/// validation
+				int askNumber = input.nextInt();
+				input.nextLine();
+				
+				System.out.println("You asked for: ");
+				Card askedCard = player1.getHand().get(askNumber - 1);
+				System.out.println(askedCard.toFancyString());
+				
+				
+				for (Card card : player2.getHand()) {
+					if (card.getRank() == askedCard.getRank()) {
+						System.out.println("Computer says: \"Here.\"");
+						player2.removeFromHand(card);   ////// weird error message here
+					} else {
+						System.out.println("Computer says: \"GoFish.\"");
+						player1.addToHand(deck.drawCard());
+						System.out.println("A card was added to your hand");
+					}
+				}
 			}
 			
 		} // end while
